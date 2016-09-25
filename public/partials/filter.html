@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="col-lg-12">
+        <div ng-if="messages.error" role="alert" class="alert alert-danger">
+            <div ng-repeat="error in messages.error">{{error.msg}}</div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="form-control">
+                        <input class="form-control" ng-model="name" name="name" placeholder="search by name" type="text">
+                    </div>
+                    <div class="form-control">
+                        <select class="form-control" name="country" model="country">
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="India">India</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <select class="form-control" name="city" model="city">
+                            <option value="Karachi">Karachi</option>
+                            <option value="Lahore">Lahore</option>
+                            <option value="Islamabad">Islamabad</option>
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <select class="form-control" name="area" model="area">
+                            <option value="Johar">Johar</option>
+                            <option value="Defence">Defence</option>
+                            <option value="Malir">Malir</option>
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" rz-slider-options="minRangeSlider.options"></rzslider>
+                    </div>
+                    <div class="form-control">
+                        <select class="form-control" model="catering">
+                            <option value="yes">Yes</option>
+                            <option value="no" selected>No</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card">
+                <div style="height: 200px;background-image: url(http://www.chalet-banquet-halls.com/images/slider3.jpg);">
+                </div>
+                <div class="card-container">
+                    <h4><b>Hilltop</b></h4>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                    <a href="#" class="btn btn-sm btn-info">view details</a>
+                </div>
+            </div>
+            <div class="card">
+                <div style="height: 200px;background-image: url(http://dhatoday.com/wp-content/uploads/2014/02/13/Royal-Weddings-at-The-Imperial-Banquet-Marquee-Clifton-and-DHA-Karachi-6.jpg);">
+                </div>
+                <div class="card-container">
+                    <h4><b>Pearl</b></h4>
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                    <a href="#" class="btn btn-sm btn-info">view details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
