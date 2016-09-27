@@ -27,36 +27,36 @@ exports.ensureAuthenticated = function(req, res, next) {
     res.status(401).send({ msg: 'Unauthorized' });
   }
 };
-  /**
-   * POST /login
-   * Sign in with email and password
-   */
-  exports.loginPost = function(req, res, next) {
-    req.assert('email', 'Email is not valid').isEmail();
-    req.assert('email', 'Email cannot be blank').notEmpty();
-    req.assert('password', 'Password cannot be blank').notEmpty();
-    req.sanitize('email').normalizeEmail({ remove_dots: false });
+/**
+ * POST /login
+ * Sign in with email and password
+ */
+exports.loginPost = function(req, res, next) {
+  req.assert('email', 'Email is not valid').isEmail();
+  req.assert('email', 'Email cannot be blank').notEmpty();
+  req.assert('password', 'Password cannot be blank').notEmpty();
+  req.sanitize('email').normalizeEmail({ remove_dots: false });
 
-    var errors = req.validationErrors();
+  var errors = req.validationErrors();
 
-    if (errors) {
-      return res.status(400).send(errors);
-    }
+  if (errors) {
+    return res.status(400).send(errors);
+  }
 
-    User.findOne({ email: req.body.email }, function(err, user) {
-      if (!user) {
-        return res.status(401).send({ msg: 'The email address ' + req.body.email + ' is not associated with any account. ' +
-        'Double-check your email address and try again.'
-        });
-      }
-      user.comparePassword(req.body.password, function(err, isMatch) {
-        if (!isMatch) {
-          return res.status(401).send({ msg: 'Invalid email or password' });
-        }
-        res.send({ token: generateToken(user), user: user.toJSON() });
+  User.findOne({ email: req.body.email }, function(err, user) {
+    if (!user) {
+      return res.status(401).send({ msg: 'The email address ' + req.body.email + ' is not associated with any account. ' +
+      'Double-check your email address and try again.'
       });
+    }
+    user.comparePassword(req.body.password, function(err, isMatch) {
+      if (!isMatch) {
+        return res.status(401).send({ msg: 'Invalid email or password' });
+      }
+      res.send({ token: generateToken(user), user: user.toJSON() });
     });
-  };
+  });
+};
 
 /**
  * POST /signup
@@ -76,7 +76,7 @@ exports.signupPost = function(req, res, next) {
 
   User.findOne({ email: req.body.email }, function(err, user) {
     if (user) {
-    return res.status(400).send({ msg: 'The email address you have entered is already associated with another account.' });
+      return res.status(400).send({ msg: 'The email address you have entered is already associated with another account.' });
     }
     user = new User({
       name: req.body.name,
@@ -84,7 +84,7 @@ exports.signupPost = function(req, res, next) {
       password: req.body.password
     });
     user.save(function(err) {
-    res.send({ token: generateToken(user), user: user });
+      res.send({ token: generateToken(user), user: user });
     });
   });
 };
@@ -160,8 +160,8 @@ exports.unlink = function(req, res, next) {
         user.vk = undefined;
         break;
       case 'github':
-          user.github = undefined;
-        break;      
+        user.github = undefined;
+        break;
       default:
         return res.status(400).send({ msg: 'Invalid OAuth Provider' });
     }
@@ -239,24 +239,24 @@ exports.resetPost = function(req, res, next) {
   var errors = req.validationErrors();
 
   if (errors) {
-      return res.status(400).send(errors);
+    return res.status(400).send(errors);
   }
 
   async.waterfall([
     function(done) {
       User.findOne({ passwordResetToken: req.params.token })
-        .where('passwordResetExpires').gt(Date.now())
-        .exec(function(err, user) {
-          if (!user) {
-            return res.status(400).send({ msg: 'Password reset token is invalid or has expired.' });
-          }
-          user.password = req.body.password;
-          user.passwordResetToken = undefined;
-          user.passwordResetExpires = undefined;
-          user.save(function(err) {
-            done(err, user);
+          .where('passwordResetExpires').gt(Date.now())
+          .exec(function(err, user) {
+            if (!user) {
+              return res.status(400).send({ msg: 'Password reset token is invalid or has expired.' });
+            }
+            user.password = req.body.password;
+            user.passwordResetToken = undefined;
+            user.passwordResetExpires = undefined;
+            user.save(function(err) {
+              done(err, user);
+            });
           });
-        });
     },
     function(user, done) {
       var transporter = nodemailer.createTransport({
@@ -473,40 +473,40 @@ exports.authTwitter = function(req, res) {
       request.get({ url: profileUrl + accessToken.screen_name, oauth: profileOauth, json: true }, function(err, response, profile) {
 
         // Step 5a. Link accounts if user is authenticated.
-      if (req.isAuthenticated()) {
-        User.findOne({ twitter: profile.id }, function(err, user) {
-          if (user) {
-            return res.status(409).send({ msg: 'There is already an existing account linked with Twitter that belongs to you.' });
-          }
-          user = req.user;
-          user.name = user.name || profile.name;
-          user.picture = user.picture || profile.profile_image_url_https;
-          user.location = user.location || profile.location;
-          user.twitter = profile.id;
-          user.save(function(err) {
-            res.send({ token: generateToken(user), user: user });
+        if (req.isAuthenticated()) {
+          User.findOne({ twitter: profile.id }, function(err, user) {
+            if (user) {
+              return res.status(409).send({ msg: 'There is already an existing account linked with Twitter that belongs to you.' });
+            }
+            user = req.user;
+            user.name = user.name || profile.name;
+            user.picture = user.picture || profile.profile_image_url_https;
+            user.location = user.location || profile.location;
+            user.twitter = profile.id;
+            user.save(function(err) {
+              res.send({ token: generateToken(user), user: user });
+            });
           });
-        });
-      } else {
-        // Step 5b. Create a new user account or return an existing one.
-        User.findOne({ twitter: profile.id }, function(err, user) {
-          if (user) {
-            return res.send({ token: generateToken(user), user: user });
-          }
-          // Twitter does not provide an email address, but email is a required field in our User schema.
-          // We can "fake" a Twitter email address as follows: username@twitter.com.
-          user = new User({
-            name: profile.name,
-            email: profile.screen_name + '@twitter.com',
-            location: profile.location,
-            picture: profile.profile_image_url_https,
-            twitter: profile.id
+        } else {
+          // Step 5b. Create a new user account or return an existing one.
+          User.findOne({ twitter: profile.id }, function(err, user) {
+            if (user) {
+              return res.send({ token: generateToken(user), user: user });
+            }
+            // Twitter does not provide an email address, but email is a required field in our User schema.
+            // We can "fake" a Twitter email address as follows: username@twitter.com.
+            user = new User({
+              name: profile.name,
+              email: profile.screen_name + '@twitter.com',
+              location: profile.location,
+              picture: profile.profile_image_url_https,
+              twitter: profile.id
+            });
+            user.save(function() {
+              res.send({ token: generateToken(user), user: user });
+            });
           });
-          user.save(function() {
-            res.send({ token: generateToken(user), user: user });
-          });
-        });
-      }
+        }
       });
     });
   }

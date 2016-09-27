@@ -20,6 +20,7 @@ var User = require('./models/User');
 // Controllers
 var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
+var hall = require('./api/hall');
 
 var app = express();
 
@@ -73,6 +74,7 @@ app.post('/auth/google', userController.authGoogle);
 app.get('/auth/google/callback', userController.authGoogleCallback);
 app.post('/auth/twitter', userController.authTwitter);
 app.get('/auth/twitter/callback', userController.authTwitterCallback);
+app.use('/api/hall',hall);
 
 app.get('*', function(req, res) {
   res.redirect('/#' + req.originalUrl);

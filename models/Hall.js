@@ -6,13 +6,14 @@ var hallSchema = mongoose.Schema({
     name:String,
     description:String,
     capacity:Number,
-    catering:Boolean,
     bookingDate:Date,
     country:String,
     city:String,
     area:String,
     address:String,
     near:String,
+    latitude:String,
+    longitude:String,
     owner:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
