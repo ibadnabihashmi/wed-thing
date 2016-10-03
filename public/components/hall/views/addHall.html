@@ -19,9 +19,12 @@
             </label>
         </div>
         <div class="form-group">
+            <input class="form-control" type="text" g-places-autocomplete options="autocompleteOptions" force-selection="true" ng-model="place" ng-change="onPlaceChange(place)"/>
+        </div>
+        <div class="form-group">
             <ng-map
-                    center="current-location">
-                <marker position="current" draggable="true" centered="true" on-dragend="getThisLocation()"></marker>
+                    center="{{$scope.hall.latitude}},{{$scope.hall.longitude}}">
+                <marker position="{{$scope.hall.latitude}},{{$scope.hall.longitude}}" draggable="true" centered="true" on-dragend="getThisLocation()"></marker>
             </ng-map>
         </div>
         <div class="form-group">
