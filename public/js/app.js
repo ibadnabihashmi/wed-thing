@@ -1,46 +1,54 @@
-angular.module('MyApp', ['ngRoute', 'satellizer', 'rzModule'])
+angular.module('MyApp', ['ngRoute', 'satellizer', 'rzModule', 'ngMap'])
     .config(function($routeProvider, $locationProvider, $authProvider) {
         $locationProvider.html5Mode(true);
 
         $routeProvider
             .when('/', {
-                templateUrl: 'partials/home.html'
+                templateUrl: 'components/partials/home.html'
             })
             .when('/contact', {
-                templateUrl: 'partials/contact.html',
+                templateUrl: 'components/partials/contact.html',
                 controller: 'ContactCtrl'
             })
             .when('/filter', {
-                templateUrl: 'partials/filter.html',
+                templateUrl: 'components/partials/filter.html',
                 controller: 'FilterCtrl'
             })
             .when('/login', {
-                templateUrl: 'partials/login.html',
+                templateUrl: 'components/partials/login.html',
                 controller: 'LoginCtrl',
                 resolve: { skipIfAuthenticated: skipIfAuthenticated }
             })
             .when('/signup', {
-                templateUrl: 'partials/signup.html',
+                templateUrl: 'components/partials/signup.html',
                 controller: 'SignupCtrl',
                 resolve: { skipIfAuthenticated: skipIfAuthenticated }
             })
             .when('/account', {
-                templateUrl: 'partials/profile.html',
+                templateUrl: 'components/partials/profile.html',
                 controller: 'ProfileCtrl',
                 resolve: { loginRequired: loginRequired }
             })
             .when('/forgot', {
-                templateUrl: 'partials/forgot.html',
+                templateUrl: 'components/partials/forgot.html',
                 controller: 'ForgotCtrl',
                 resolve: { skipIfAuthenticated: skipIfAuthenticated }
             })
             .when('/reset/:token', {
-                templateUrl: 'partials/reset.html',
+                templateUrl: 'components/partials/reset.html',
                 controller: 'ResetCtrl',
                 resolve: { skipIfAuthenticated: skipIfAuthenticated }
             })
+            .when('/addService', {
+                templateUrl: 'components/services/views/addServices.html',
+                controller: 'ServicesCtrl'
+            })
+            .when('/addHall', {
+                templateUrl: 'components/hall/views/addHall.html',
+                controller: 'HallCtrl'
+            })
             .otherwise({
-                templateUrl: 'partials/404.html'
+                templateUrl: 'components/partials/404.html'
             });
 
         $authProvider.loginUrl = '/login';

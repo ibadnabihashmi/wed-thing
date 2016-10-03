@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="col-md-12">
+        <div class="form-group">
+            <input class="form-control" ng-model="hall.name" type="text" placeholder="Name">
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" ng-model="hall.description" rows="4" placeholder="Description"></textarea>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="hall.available">
+                Available ?
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="hall.allowsExternalCatering">
+                Allows External Catering ?
+            </label>
+        </div>
+        <div class="form-group">
+            <ng-map
+                    center="current-location">
+                <marker position="current" draggable="true" centered="true" on-dragend="getThisLocation()"></marker>
+            </ng-map>
+        </div>
+        <div class="form-group">
+            <input class="form-control" ng-model="hall.country" type="text" placeholder="Country">
+        </div>
+        <div class="form-group">
+            <input class="form-control" ng-model="hall.city" type="text" placeholder="City">
+        </div>
+        <div class="form-group">
+            <input class="form-control" ng-model="hall.area" type="text" placeholder="Area">
+        </div>
+        <div class="form-group">
+            <input class="form-control" ng-model="hall.near" type="text" placeholder="Near">
+        </div>
+        <div class="form-group">
+            <textarea class="form-control" ng-model="hall.address" rows="4" placeholder="Address"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Type</label>
+            <select class="form-control" ng-model="hall.type">
+                <option value="hall" selected="true">Hall</option>
+                <option value="banquet">banquet</option>
+                <option value="marque">Marque</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <input class="form-control" ng-model="hall.capacity" type="text" placeholder="Capacity">
+        </div>
+        <div class="form-group">
+            <input class="form-control" ng-model="hall.price" type="text" placeholder="Price">
+        </div>
+        <div class="form-group">
+            <a type="button" class="btn btn-info" ng-click="saveHall()">save</a>
+        </div>
+    </div>
+</div>

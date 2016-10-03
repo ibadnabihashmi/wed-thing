@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 var User = require('../models/User');
 
 var hallSchema = mongoose.Schema({
-    available:Boolean,
+    available:{type:Boolean,default:false},
     name:String,
     description:String,
     capacity:Number,
-    bookingDate:Date,
+    price:Number,
     country:String,
     city:String,
     area:String,
@@ -14,6 +14,7 @@ var hallSchema = mongoose.Schema({
     near:String,
     latitude:String,
     longitude:String,
+    allowsExternalCatering:{type:Boolean,default:false},
     owner:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
