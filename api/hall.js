@@ -7,21 +7,7 @@ var express = require('express');
 var router = express.Router();
 
 router.post('/addHall',function (req,res) {
-    var hall = new Hall({
-        available:req.body.available || true,
-        name:req.body.hallName,
-        description:req.body.hallDescription,
-        capacity:req.body.hallCapacity,
-        bookingDate:req.body.bookingDate || undefined,
-        country:req.body.hallCountry,
-        city:req.body.hallCity,
-        area:req.body.hallArea,
-        address:req.body.hallArea,
-        latitude:req.body.latitude,
-        longitude:req.body.longitude,
-        near:req.body.hallNear,
-        owner:req.user._id
-    });
+    var hall = new Hall(req.body);
     hall.save(function(err){
         if(err){
             return res.status(500).send({

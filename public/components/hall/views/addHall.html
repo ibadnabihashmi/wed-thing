@@ -23,8 +23,8 @@
         </div>
         <div class="form-group">
             <ng-map
-                    center="{{$scope.hall.latitude}},{{$scope.hall.longitude}}">
-                <marker position="{{$scope.hall.latitude}},{{$scope.hall.longitude}}" draggable="true" centered="true" on-dragend="getThisLocation()"></marker>
+                    center="current-location">
+                <!--<marker position="{{$scope.hall.latitude}},{{$scope.hall.longitude}}" draggable="true" centered="true" on-dragend="getThisLocation()"></marker>-->
             </ng-map>
         </div>
         <div class="form-group">

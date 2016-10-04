@@ -1,14 +1,17 @@
 angular.module('MyApp')
-    .controller('HallCtrl', function($scope, $rootScope, $location, $window, $auth, Account, NgMap) {
+    .controller('HallCtrl', function($scope, $rootScope, $location, $window, $auth, hallService, NgMap) {
         $scope.user = $rootScope.currentUser;
-        var map;
+        $scope.map;
+        NgMap.getMap().then(function(map){
+            $scope.map = map;
+        });
         $scope.hall = {
             latitude:0,
             longitude:0
         };
         $scope.getThisLocation = function(e){
-            $scope.hall.latitude = this.position.lat();
-            $scope.hall.longitude = this.position.lng();
+            $scope.hall.latitude = e.latLng.lat();
+            $scope.hall.longitude = e.latLng.lng();
         };
         $scope.place = null;
         $scope.autocompleteOptions = {
@@ -21,9 +24,28 @@ angular.module('MyApp')
             $scope.hall.area = place.vicinity;
             $scope.hall.latitude = place.geometry.location.lat();
             $scope.hall.longitude = place.geometry.location.lng();
-            console.log($scope);
+            $scope.hall.address = place.formatted_address;
+            var marker = new google.maps.Marker({
+                position: {
+                    lat:$scope.hall.latitude,
+                    lng:$scope.hall.longitude
+                },
+                map: $scope.map,
+                draggable: true,
+                animation: google.maps.Animation.DROP
+            });
+            marker.addListener('dragend',$scope.getThisLocation);
+            $scope.map.panTo({
+                lat:$scope.hall.latitude,
+                lng:$scope.hall.longitude
+            });
         };
         $scope.saveHall = function(){
-            console.log($scope.hall);
+            var promise = hallService.saveHall($scope.hall);
+            promise.then(function(response){
+                console.log(response);
+            },function(error){
+                console.log(error);
+            });
         }
     });

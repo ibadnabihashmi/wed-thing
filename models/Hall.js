@@ -12,8 +12,8 @@ var hallSchema = mongoose.Schema({
     area:String,
     address:String,
     near:String,
-    latitude:String,
-    longitude:String,
+    latitude:Number,
+    longitude:Number,
     allowsExternalCatering:{type:Boolean,default:false},
     owner:{
         type:mongoose.Schema.Types.ObjectId,
