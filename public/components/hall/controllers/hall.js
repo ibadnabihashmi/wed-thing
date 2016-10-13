@@ -40,12 +40,12 @@ angular.module('MyApp')
                 lng:$scope.hall.longitude
             });
         };
-        $scope.saveHall = function(){
-            var promise = hallService.saveHall($scope.hall);
+        $scope.saveHall = function(file){
+            var promise = hallService.saveHall($scope.hall,file);
             promise.then(function(response){
                 console.log(response);
             },function(error){
                 console.log(error);
             });
-        }
+        };
     });

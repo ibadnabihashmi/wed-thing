@@ -1,4 +1,11 @@
-angular.module('MyApp', ['ngRoute', 'satellizer', 'rzModule', 'ngMap','google.places'])
+angular.module('MyApp', [
+    'ngRoute',
+    'satellizer',
+    'rzModule',
+    'ngMap',
+    'google.places',
+    'ngFileUpload'
+])
     .config(function($routeProvider, $locationProvider, $authProvider) {
         $locationProvider.html5Mode(true);
 
