@@ -7,25 +7,29 @@ var express     = require('express');
 var router      = express.Router();
 var multer      = require('multer');
 var upload      = multer({ dest: './public/uploads/' });
+var fs          = require('fs');
 
-router.post('/addHall',upload.single('displayImage'),function (req,res,next) {
-    console.log(req.files);
-    console.log(req.body);
-    res.send(200);
-    // var hall = new Hall(req.body);
-    // hall.save(function(err){
-    //     if(err){
-    //         return res.status(500).send({
-    //             status:500,
-    //             message:err
-    //         });
-    //     }else{
-    //         return res.status(200).send({
-    //             status:200,
-    //             message:'hall added'
-    //         });
-    //     }
-    // });
+router.post('/addHall',upload.array('files'),function (req,res,next) {
+    fs.mkdirSync('./public/uploads/'+req.body.data.name);
+    var hall = new Hall(req.body.data);
+    req.files.forEach(function(file){
+        fs.renameSync('./public/uploads/'+file.filename,'./public/uploads/'+req.body.data.name+'/'+file.filename+'_'+file.originalname);
+        hall.imgSrc.push('public/uploads/'+req.body.data.name+'/'+file.filename+'_'+file.originalname);
+    });
+
+    hall.save(function(err){
+        if(err){
+            return res.status(500).send({
+                status:500,
+                message:err
+            });
+        }else{
+            return res.status(200).send({
+                status:200,
+                message:'hall added'
+            });
+        }
+    });
 });
 
 router.put('/editHall',function (req,res) {

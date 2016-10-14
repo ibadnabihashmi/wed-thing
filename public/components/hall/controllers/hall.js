@@ -1,5 +1,5 @@
 angular.module('MyApp')
-    .controller('HallCtrl', function($scope, $rootScope, $location, $window, $auth, hallService, NgMap) {
+    .controller('HallCtrl', function($scope, $rootScope, $location, $window, $auth, hallService, NgMap, Upload) {
         $scope.user = $rootScope.currentUser;
         $scope.map;
         NgMap.getMap().then(function(map){
@@ -40,8 +40,16 @@ angular.module('MyApp')
                 lng:$scope.hall.longitude
             });
         };
-        $scope.saveHall = function(file){
-            var promise = hallService.saveHall($scope.hall,file);
+        $scope.uploadFiles = function (files) {
+            $scope.files = files;
+        };
+
+        $scope.saveHall = function(){
+            
+            var promise = hallService.saveHall(
+                $scope.hall,
+                $scope.files
+            );
             promise.then(function(response){
                 console.log(response);
             },function(error){

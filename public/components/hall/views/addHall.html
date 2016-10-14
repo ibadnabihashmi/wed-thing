@@ -57,13 +57,11 @@
             <input class="form-control" ng-model="hall.price" type="text" placeholder="Price">
         </div>
         <div class="form-group">
-            <input type="file" id="img1" ngf-select ng-model="img1" name="img1" accept="image/*" ngf-max-size="2MB" required ngf-model-invalid="errorFile">
-            <!--<input type="file" id="img2" ngf-select ng-model="img2" name="img2" accept="image/*" ngf-max-size="2MB" required ngf-model-invalid="errorFile">-->
-            <!--<input type="file" id="img3" ngf-select ng-model="img3" name="img3" accept="image/*" ngf-max-size="2MB" required ngf-model-invalid="errorFile">-->
-            <!--<input type="file" id="img4" ngf-select ng-model="img4" name="img4" accept="image/*" ngf-max-size="2MB" required ngf-model-invalid="errorFile">-->
+            <button ngf-select="uploadFiles($files)" multiple
+                    accept="image/*">Select Files</button>
         </div>
         <div class="form-group">
-            <a type="button" class="btn btn-info" ng-click="saveHall(img1)">save</a>
+            <a type="button" class="btn btn-info" ng-click="saveHall()">save</a>
         </div>
     </div>
 </div>
