@@ -1,0 +1,98 @@
+<div class="grow">
+    <div class="container">
+        <h2>{{hall.name}}</h2>
+    </div>
+</div>
+<div class="product">
+    <div class="container">
+
+        <div class="product-price1">
+            <div class="top-sing">
+                <div class="col-md-7 single-top">
+                    <div class="flexslider">
+                        <ul class="slides">
+                            <li data-thumb="{{hall.imgSrc[0]}}">
+                                <div class="thumb-image"> <img src="{{hall.imgSrc[0]}}" data-imagezoom="true" class="img-responsive"> </div>
+                            </li>
+                            <li data-thumb="{{hall.imgSrc[1]}}">
+                                <div class="thumb-image"> <img src="{{hall.imgSrc[1]}}" data-imagezoom="true" class="img-responsive"> </div>
+                            </li>
+                            <li data-thumb="{{hall.imgSrc[2]}}">
+                                <div class="thumb-image"> <img src="{{hall.imgSrc[2]}}" data-imagezoom="true" class="img-responsive"> </div>
+                            </li>
+                            <li data-thumb="{{hall.imgSrc[3]}}">
+                                <div class="thumb-image"> <img src="{{hall.imgSrc[3]}}" data-imagezoom="true" class="img-responsive"> </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="clearfix"> </div>
+                    <!-- slide -->
+
+
+
+
+                    <script>
+                        // Can also be used with $(document).ready()
+                        $(window).load(function() {
+                            $('.flexslider').flexslider({
+                                animation: "slide",
+                                controlNav: "thumbnails"
+                            });
+                        });
+                    </script>
+                </div>
+                <div class="col-md-5 single-top-in simpleCart_shelfItem">
+                    <div class="single-para ">
+                        <h4>{{hall.name}}</h4>
+                        <div class="star-on">
+                            <div class="review">
+                                <a href="#">{{hall.views}}</a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <h5 class="item_price">{{hall.price}} Rs</h5>
+                        <p>{{hall.description}}</p>
+                        <h6>Capacity : {{hall.capacity}}</h6>
+                        <h6>Address  : {{hall.address}}</h6>
+                        <h6>Near     : {{hall.near}}</h6>
+                        <h6>City     : {{hall.city}}</h6>
+                        <h6 ng-if="hall.allowsExternalCatering">ExternalCatering : yes</h6>
+                        <h6 ng-if="!hall.allowsExternalCatering">ExternalCatering : no</h6>
+                        <div style="margin-top: 10px;">
+                            <ng-map  center="{{$scope.hall.latitude}},{{$scope.hall.longitude}}">
+                                <marker position="{{$scope.hall.latitude}},{{$scope.hall.longitude}}" centered="true"></marker>
+                            </ng-map>
+                        </div>
+                        <a href="#" class="add-cart item_add">Contact</a>
+                    </div>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+            <!---->
+
+            <div class=" bottom-product">
+                <div class="col-md-4 grid-top simpleCart_shelfItem" ng-repeat="rel in related">
+                    <a href="/hallDetail/{{rel._id}}" class="b-link-stripe b-animate-go  thickbox"><img class="img-responsive" src="{{rel.imgSrc[0]}}" alt="">
+                        <div class="b-wrapper">
+                            <h3 class="b-animate b-from-left b-delay03 ">
+                                <span>{{rel.name}}</span>
+
+                            </h3>
+                        </div>
+                    </a>
+
+
+                    <p><a href="/hallDetail/{{rel._id}}">{{rel.name}}</a></p>
+                    <a href="#" class="item_add"><p class="number item_price"><i> </i>{{rel.price}} Rs</p></a>
+                </div>
+                <div class="clearfix"> </div>
+            </div>
+        </div>
+
+        <div class="clearfix"> </div>
+    </div>
+</div>
+<!-- FlexSlider -->
+<script defer src="/js/lib/jquery.flexslider.js"></script>
+<link rel="stylesheet" href="/css/vendor/flexslider.css" type="text/css" media="screen" />

@@ -14,7 +14,7 @@ router.post('/addHall',upload.array('files'),function (req,res,next) {
     var hall = new Hall(req.body.data);
     req.files.forEach(function(file){
         fs.renameSync('./public/uploads/'+file.filename,'./public/uploads/'+req.body.data.name+'/'+file.filename+'_'+file.originalname);
-        hall.imgSrc.push('public/uploads/'+req.body.data.name+'/'+file.filename+'_'+file.originalname);
+        hall.imgSrc.push('/uploads/'+req.body.data.name+'/'+file.filename+'_'+file.originalname);
     });
 
     hall.save(function(err){
@@ -55,4 +55,61 @@ router.put('/editHall',function (req,res) {
         });
 });
 
+router.get('/fetchDetails/:id',function (req,res) {
+    Hall
+        .findById(req.params.id)
+        .exec(function (err,hall) {
+            if(err){
+                return res.status(500).send({
+                    status:500,
+                    message:err
+                });
+            }else if(hall){
+                hall.views += 1;
+                hall.save(function(err){
+                    if(err){
+                        return res.status(500).send({
+                            status:500,
+                            message:err
+                        });
+                    }else{
+                        return res.status(200).send({
+                            status:200,
+                            hall:hall
+                        });
+                    }
+                });
+
+            }else{
+                return res.status(404).send({
+                    status:404,
+                    message:'Not found'
+                });
+            }
+        });
+});
+
+router.get('/fetchRelated',function (req,res) {
+    Hall
+        .find()
+        .limit(3)
+        .exec(function (err,halls) {
+            if(halls.length > 0){
+                return res.status(200).send({
+                    status:200,
+                    halls:halls
+                });
+            }else if(err){
+                return res.status(500).send({
+                    status:500,
+                    message:err
+                });
+            }else{
+                return res.status(404).send({
+                    status:404,
+                    message:'Not found'
+                });
+            }
+        });
+});
 module.exports = router;

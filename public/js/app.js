@@ -11,15 +11,12 @@ angular.module('MyApp', [
 
         $routeProvider
             .when('/', {
-                templateUrl: 'components/partials/home.html'
+                templateUrl: 'components/home/views/home.html',
+                controller: 'HomeCtrl'
             })
             .when('/contact', {
                 templateUrl: 'components/partials/contact.html',
                 controller: 'ContactCtrl'
-            })
-            .when('/filter', {
-                templateUrl: 'components/partials/filter.html',
-                controller: 'FilterCtrl'
             })
             .when('/login', {
                 templateUrl: 'components/partials/login.html',
@@ -53,6 +50,14 @@ angular.module('MyApp', [
             .when('/addHall', {
                 templateUrl: 'components/hall/views/addHall.html',
                 controller: 'HallCtrl'
+            })
+            .when('/hallDetail/:id', {
+                templateUrl: 'components/hall/views/hall.html',
+                controller: 'HallDetailCtrl'
+            })
+            .when('/filter', {
+                templateUrl: 'components/filter/views/filter.html',
+                controller: 'FilterCtrl'
             })
             .otherwise({
                 templateUrl: 'components/partials/404.html'

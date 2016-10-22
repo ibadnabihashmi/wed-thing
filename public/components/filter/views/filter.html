@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="col-lg-12">
+        <div ng-if="messages.error" role="alert" class="alert alert-danger">
+            <div ng-repeat="error in messages.error">{{error.msg}}</div>
+        </div>
+        <div class="col-lg-4">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="form-control">
+                        <input class="form-control" ng-model="name" name="name" placeholder="search by name" type="text">
+                    </div>
+                    <div class="form-control">
+                        <select class="form-control" name="country" model="country">
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="India">India</option>
+                            <option value="Bangladesh">Bangladesh</option>
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <select class="form-control" name="city" model="city">
+                            <option value="Karachi">Karachi</option>
+                            <option value="Lahore">Lahore</option>
+                            <option value="Islamabad">Islamabad</option>
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <select class="form-control" name="area" model="area">
+                            <option value="Johar">Johar</option>
+                            <option value="Defence">Defence</option>
+                            <option value="Malir">Malir</option>
+                        </select>
+                    </div>
+                    <div class="form-control">
+                        <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" rz-slider-options="minRangeSlider.options"></rzslider>
+                    </div>
+                    <div class="form-control">
+                        <select class="form-control" model="catering">
+                            <option value="yes">Yes</option>
+                            <option value="no" selected>No</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card" ng-repeat="hall in halls">
+                <div style="height: 200px;background-image: url('{{hall.imgSrc[0]}}');">
+                </div>
+                <div class="card-container">
+                    <h4><b>{{hall.name}}</b></h4>
+                    <p>{{hall.description}}</p>
+                    <a href="/hallDetail/{{hall._id}}" class="btn btn-sm btn-info">view details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

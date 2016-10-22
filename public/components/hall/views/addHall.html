@@ -6,18 +6,15 @@
         <div class="form-group">
             <textarea class="form-control" ng-model="hall.description" rows="4" placeholder="Description"></textarea>
         </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="hall.available">
-                Available ?
-            </label>
+        <div>
+            <input type="checkbox" ng-model="hall.available">
+            Available?
         </div>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="hall.allowsExternalCatering">
-                Allows External Catering ?
-            </label>
+        <div>
+            <input type="checkbox" ng-model="hall.allowsExternalCatering">
+            Allows Catering?
         </div>
+
         <div class="form-group">
             <input class="form-control" type="text" g-places-autocomplete options="autocompleteOptions" force-selection="true" ng-model="place" ng-change="onPlaceChange(place)"/>
         </div>

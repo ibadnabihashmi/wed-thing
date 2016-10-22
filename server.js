@@ -21,6 +21,8 @@ var User = require('./models/User');
 var userController = require('./controllers/user');
 var contactController = require('./controllers/contact');
 var hall = require('./api/hall');
+var filter = require('./api/filter');
+var home = require('./api/home');
 
 var app = express();
 
@@ -75,6 +77,8 @@ app.get('/auth/google/callback', userController.authGoogleCallback);
 app.post('/auth/twitter', userController.authTwitter);
 app.get('/auth/twitter/callback', userController.authTwitterCallback);
 app.use('/api/hall',hall);
+app.use('/api/filter',filter);
+app.use('/api/home',home);
 
 app.get('*', function(req, res) {
   res.redirect('/#' + req.originalUrl);

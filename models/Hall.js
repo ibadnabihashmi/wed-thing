@@ -14,6 +14,10 @@ var hallSchema = mongoose.Schema({
     near:String,
     latitude:Number,
     longitude:Number,
+    views:{
+        type:Number,
+        default:0
+    },
     imgSrc:[String],
     allowsExternalCatering:{type:Boolean,default:false},
     owner:{
