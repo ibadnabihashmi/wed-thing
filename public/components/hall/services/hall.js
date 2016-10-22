@@ -3,7 +3,7 @@ angular.module('MyApp')
         return {
             saveHall:function(hall,files){
                 return Upload.upload({
-                    url: 'http://localhost:3000/api/hall/addHall',
+                    url: '/api/hall/addHall',
                     arrayKey: '',
                     data:{
                         files:files,
