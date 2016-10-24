@@ -10,6 +10,15 @@
                         <input class="form-control" ng-model="name" name="name" placeholder="search by name" type="text">
                     </div>
                     <div class="form-control">
+                        <ui-select ng-model="country.selected" theme="selectize" style="width: 300px;" title="Choose a country" append-to-body="true">
+                            <ui-select-match placeholder="Select or search a country in the list...">{{$select.selected.name}}</ui-select-match>
+                            <ui-select-choices repeat="country in countries | filter: $select.search">
+                                <span ng-bind-html="country.name | highlight: $select.search"></span>
+                                <small ng-bind-html="country.code | highlight: $select.search"></small>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                    <div class="form-control">
                         <select class="form-control" name="country" model="country">
                             <option value="Pakistan">Pakistan</option>
                             <option value="India">India</option>
@@ -42,16 +51,16 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-8">
-            <div class="card" ng-repeat="hall in halls">
-                <div style="height: 200px;background-image: url('{{hall.imgSrc[0]}}');">
-                </div>
-                <div class="card-container">
-                    <h4><b>{{hall.name}}</b></h4>
-                    <p>{{hall.description}}</p>
-                    <a href="/hallDetail/{{hall._id}}" class="btn btn-sm btn-info">view details</a>
-                </div>
-            </div>
-        </div>
+        <!--<div class="col-lg-8">-->
+            <!--<div class="card" ng-repeat="hall in halls">-->
+                <!--<div style="height: 200px;background-image: url('{{hall.imgSrc[0]}}');">-->
+                <!--</div>-->
+                <!--<div class="card-container">-->
+                    <!--<h4><b>{{hall.name}}</b></h4>-->
+                    <!--<p>{{hall.description}}</p>-->
+                    <!--<a href="/hallDetail/{{hall._id}}" class="btn btn-sm btn-info">view details</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
 </div>

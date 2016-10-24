@@ -19,9 +19,9 @@ angular.module('MyApp')
         };
         $scope.onPlaceChange = function(place){
             var address = place.formatted_address.split(',');
-            $scope.hall.country = address[address.length-1];
-            $scope.hall.city = address[address.length-2];
-            $scope.hall.area = place.vicinity;
+            $scope.hall.country = address[address.length-1].trim();
+            $scope.hall.city = address[address.length-2].trim();
+            $scope.hall.area = place.vicinity.trim();
             $scope.hall.latitude = place.geometry.location.lat();
             $scope.hall.longitude = place.geometry.location.lng();
             $scope.hall.address = place.formatted_address;

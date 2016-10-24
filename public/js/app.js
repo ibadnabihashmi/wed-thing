@@ -4,7 +4,8 @@ angular.module('MyApp', [
     'rzModule',
     'ngMap',
     'google.places',
-    'ngFileUpload'
+    'ngFileUpload',
+    'underscore'
 ])
     .config(function($routeProvider, $locationProvider, $authProvider) {
         $locationProvider.html5Mode(true);

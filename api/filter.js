@@ -12,7 +12,7 @@ router.get('/fetchAllvenues',function (req,res) {
         .exec(function(err,halls){
             if(err){
                 return res.status(404).send({
-                    status:5404,
+                    status:404,
                     message:err
                 });
             }
@@ -24,5 +24,4 @@ router.get('/fetchAllvenues',function (req,res) {
             }
         });
 });
-
 module.exports = router;
