@@ -5,7 +5,8 @@ angular.module('MyApp', [
     'ngMap',
     'google.places',
     'ngFileUpload',
-    'underscore'
+    'underscore',
+    'ui.select'
 ])
     .config(function($routeProvider, $locationProvider, $authProvider) {
         $locationProvider.html5Mode(true);

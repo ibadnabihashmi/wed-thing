@@ -10,34 +10,34 @@
                         <input class="form-control" ng-model="name" name="name" placeholder="search by name" type="text">
                     </div>
                     <div class="form-control">
-                        <ui-select ng-model="country.selected" theme="selectize" style="width: 300px;" title="Choose a country" append-to-body="true">
-                            <ui-select-match placeholder="Select or search a country in the list...">{{$select.selected.name}}</ui-select-match>
-                            <ui-select-choices repeat="country in countries | filter: $select.search">
-                                <span ng-bind-html="country.name | highlight: $select.search"></span>
-                                <small ng-bind-html="country.code | highlight: $select.search"></small>
+                        <ui-select ng-model="search.country">
+                            <ui-select-match>
+                                <span ng-bind="$select.selected"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in (filters.country | filter: $select.search)">
+                                <span ng-bind="item"></span>
                             </ui-select-choices>
                         </ui-select>
                     </div>
                     <div class="form-control">
-                        <select class="form-control" name="country" model="country">
-                            <option value="Pakistan">Pakistan</option>
-                            <option value="India">India</option>
-                            <option value="Bangladesh">Bangladesh</option>
-                        </select>
+                        <ui-select ng-model="search.city">
+                            <ui-select-match>
+                                <span ng-bind="$select.selected"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in (filters.city | filter: $select.search)">
+                                <span ng-bind="item"></span>
+                            </ui-select-choices>
+                        </ui-select>
                     </div>
                     <div class="form-control">
-                        <select class="form-control" name="city" model="city">
-                            <option value="Karachi">Karachi</option>
-                            <option value="Lahore">Lahore</option>
-                            <option value="Islamabad">Islamabad</option>
-                        </select>
-                    </div>
-                    <div class="form-control">
-                        <select class="form-control" name="area" model="area">
-                            <option value="Johar">Johar</option>
-                            <option value="Defence">Defence</option>
-                            <option value="Malir">Malir</option>
-                        </select>
+                        <ui-select ng-model="search.area">
+                            <ui-select-match>
+                                <span ng-bind="$select.selected"></span>
+                            </ui-select-match>
+                            <ui-select-choices repeat="item in (filters.area | filter: $select.search)">
+                                <span ng-bind="item"></span>
+                            </ui-select-choices>
+                        </ui-select>
                     </div>
                     <div class="form-control">
                         <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" rz-slider-options="minRangeSlider.options"></rzslider>
