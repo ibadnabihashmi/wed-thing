@@ -7,11 +7,13 @@
             <div class="panel">
                 <div class="panel-body">
                     <div class="form-control">
+                        <label>Search by name</label>
                         <input class="form-control" ng-model="name" name="name" placeholder="search by name" type="text">
                     </div>
                     <div class="form-control">
+                        <label>Search by country</label>
                         <ui-select ng-model="search.country">
-                            <ui-select-match>
+                            <ui-select-match placeholder="Select country">
                                 <span ng-bind="$select.selected"></span>
                             </ui-select-match>
                             <ui-select-choices repeat="item in (filters.country | filter: $select.search)">
@@ -20,8 +22,9 @@
                         </ui-select>
                     </div>
                     <div class="form-control">
+                        <label>Search by city</label>
                         <ui-select ng-model="search.city">
-                            <ui-select-match>
+                            <ui-select-match placeholder="Select city">
                                 <span ng-bind="$select.selected"></span>
                             </ui-select-match>
                             <ui-select-choices repeat="item in (filters.city | filter: $select.search)">
@@ -30,8 +33,9 @@
                         </ui-select>
                     </div>
                     <div class="form-control">
+                        <label>Search by area</label>
                         <ui-select ng-model="search.area">
-                            <ui-select-match>
+                            <ui-select-match placeholder="Select area">
                                 <span ng-bind="$select.selected"></span>
                             </ui-select-match>
                             <ui-select-choices repeat="item in (filters.area | filter: $select.search)">
@@ -40,13 +44,22 @@
                         </ui-select>
                     </div>
                     <div class="form-control">
-                        <rzslider rz-slider-model="minRangeSlider.minValue" rz-slider-high="minRangeSlider.maxValue" rz-slider-options="minRangeSlider.options"></rzslider>
+                        <label>Search by price</label>
+                        <rzslider rz-slider-model="price.minValue" rz-slider-high="price.maxValue" rz-slider-options="price.options"></rzslider>
                     </div>
                     <div class="form-control">
-                        <select class="form-control" model="catering">
+                        <label>Search by capacity</label>
+                        <rzslider rz-slider-model="capacity.minValue" rz-slider-high="capacity.maxValue" rz-slider-options="capacity.options"></rzslider>
+                    </div>
+                    <div class="form-control">
+                        <label>Allows external catering?</label>
+                        <select class="form-control" ng-model="catering">
                             <option value="yes">Yes</option>
                             <option value="no" selected>No</option>
                         </select>
+                    </div>
+                    <div class="form-control">
+                        <a class="btn btn-primary" ng-click="searchHall()">search</a>
                     </div>
                 </div>
             </div>
