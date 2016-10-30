@@ -24,4 +24,26 @@ router.get('/fetchAllvenues',function (req,res) {
             }
         });
 });
+router.post('/',function (req,res) {
+    Hall
+        .find(req.body)
+        .exec(function(err,halls){
+            if(halls.length > 0){
+                return res.status(200).send({
+                    status:200,
+                    halls:halls
+                });
+            }else if(err){
+                return res.status(404).send({
+                    status:404,
+                    message:err
+                });
+            }else{
+                return res.status(404).send({
+                    status:404,
+                    message:'Nothing Found'
+                });
+            }
+        });
+});
 module.exports = router;

@@ -17,7 +17,7 @@ angular.module('MyApp', [
                 controller: 'HomeCtrl'
             })
             .when('/contact', {
-                templateUrl: 'components/partials/contact.html',
+                templateUrl: 'components/contact/views/contact.html',
                 controller: 'ContactCtrl'
             })
             .when('/login', {

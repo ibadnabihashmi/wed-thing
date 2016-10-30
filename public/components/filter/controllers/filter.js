@@ -1,6 +1,8 @@
 angular.module('MyApp')
     .controller('FilterCtrl', function($scope,_,filterService) {
+        $scope.nothingFound = false;
         $scope.filters = {};
+
         $scope.search = {
             country:'',
             city:'',
@@ -33,22 +35,37 @@ angular.module('MyApp')
                 $scope.filters.near = _.uniq(_.pluck($scope.halls,'near'));
             });
         };
-
+        var constructQuery = function(){
+            var query = {$and:[]};
+            for(var a in $scope.search){
+                if($scope.search.hasOwnProperty(a)){
+                    if($scope.search[a] !== undefined &&
+                    $scope.search[a] !== ""){
+                        var obj = {};
+                        obj[a] = $scope.search[a];
+                        query.$and.push(obj);
+                    }
+                }
+            }
+            return query;
+        };
         $scope.searchHall = function(){
             $scope.search.price = {
-                min:$scope.price.minValue,
-                max:$scope.price.maxValue
+                $gte:$scope.price.minValue,
+                $lte:$scope.price.maxValue
             };
             $scope.search.capacity = {
-                min:$scope.capacity.minValue,
-                max:$scope.capacity.maxValue
+                $gte:$scope.capacity.minValue,
+                $lte:$scope.capacity.maxValue
             };
             $scope.search.name = $scope.name;
             $scope.search.catering = $scope.catering;
-            filterService.filter($scope.search).then(function(res){
-                console.log(res);
+            filterService.filter(constructQuery()).then(function(res){
+                nothingFound = false;
+                $scope.halls = res.data.halls;
             },function(err){
-                console.err(err);
+                $scope.nothingFound = true;
+                console.log(err);
             });
         };
 

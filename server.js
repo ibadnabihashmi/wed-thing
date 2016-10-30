@@ -1,28 +1,28 @@
-var express = require('express');
-var path = require('path');
-var logger = require('morgan');
-var compression = require('compression');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var expressValidator = require('express-validator');
-var dotenv = require('dotenv');
-var mongoose = require('mongoose');
-var jwt = require('jsonwebtoken');
-var moment = require('moment');
-var request = require('request');
+var express           = require('express');
+var path              = require('path');
+var logger            = require('morgan');
+var compression       = require('compression');
+var cookieParser      = require('cookie-parser');
+var bodyParser        = require('body-parser');
+var expressValidator  = require('express-validator');
+var dotenv            = require('dotenv');
+var mongoose          = require('mongoose');
+var jwt               = require('jsonwebtoken');
+var moment            = require('moment');
+var request           = require('request');
 
 // Load environment variables from .env file
 dotenv.load();
 
 // Models
-var User = require('./models/User');
+var User              = require('./models/User');
 
 // Controllers
-var userController = require('./controllers/user');
-var contactController = require('./controllers/contact');
-var hall = require('./api/hall');
-var filter = require('./api/filter');
-var home = require('./api/home');
+var userController    = require('./controllers/user');
+var hall              = require('./api/hall');
+var filter            = require('./api/filter');
+var home              = require('./api/home');
+var contact           = require('./api/contact');
 
 var app = express();
 
@@ -62,7 +62,6 @@ app.use(function(req, res, next) {
   }
 });
 
-app.post('/contact', contactController.contactPost);
 app.put('/account', userController.ensureAuthenticated, userController.accountPut);
 app.delete('/account', userController.ensureAuthenticated, userController.accountDelete);
 app.post('/signup', userController.signupPost);
@@ -79,6 +78,7 @@ app.get('/auth/twitter/callback', userController.authTwitterCallback);
 app.use('/api/hall',hall);
 app.use('/api/filter',filter);
 app.use('/api/home',home);
+app.use('/api/contact',contact);
 
 app.get('*', function(req, res) {
   res.redirect('/#' + req.originalUrl);

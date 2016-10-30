@@ -54,8 +54,8 @@
                     <div class="form-control">
                         <label>Allows external catering?</label>
                         <select class="form-control" ng-model="catering">
-                            <option value="yes">Yes</option>
-                            <option value="no" selected>No</option>
+                            <option value="true">Yes</option>
+                            <option value="false" selected>No</option>
                         </select>
                     </div>
                     <div class="form-control">
@@ -64,16 +64,22 @@
                 </div>
             </div>
         </div>
-        <!--<div class="col-lg-8">-->
-            <!--<div class="card" ng-repeat="hall in halls">-->
-                <!--<div style="height: 200px;background-image: url('{{hall.imgSrc[0]}}');">-->
-                <!--</div>-->
-                <!--<div class="card-container">-->
-                    <!--<h4><b>{{hall.name}}</b></h4>-->
-                    <!--<p>{{hall.description}}</p>-->
-                    <!--<a href="/hallDetail/{{hall._id}}" class="btn btn-sm btn-info">view details</a>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
+        <div class="col-lg-8">
+            <div ng-if="nothingFound" class="card">
+                <div style="height: 200px;" class="text-center">
+                    <h4><b>Nothing found</b></h4>
+                    <p>sorry , nothing matched your query</p>
+                </div>
+            </div>
+            <div ng-if="!nothingFound" class="card" ng-repeat="hall in halls">
+                <div style="height: 200px;background-image: url('{{hall.imgSrc[0]}}');">
+                </div>
+                <div class="card-container">
+                    <h4><b>{{hall.name}}</b></h4>
+                    <p>{{hall.description}}</p>
+                    <a href="/hallDetail/{{hall._id}}" class="btn btn-sm btn-info">view details</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
